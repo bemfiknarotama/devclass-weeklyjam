@@ -1,15 +1,11 @@
 .hero-section{
-  background: url("assets/bg.jpg");
+  background: url("../assets/bg.jpg");
   background-size: cover;
   color: white;
 }
 
-section{
-  margin-top: 60px;
-}
-
 body.auth{
-  background: url("assets/bg.jpg");
+  background: url("../assets/bg.jpg");
   background-size: cover;
 }
 
