@@ -44,7 +44,7 @@ $cek = mysqli_fetch_assoc($query);
                     if (isset($email)) {
                         echo '
                         <li class="nav-item">
-                        <a href="pages/admin/dashboard.php" class="nav-link ms-3 text-warning"><i class="fa fa-user"></i> ' . $cek['nama'] . '</a>
+                        <a href="pages/admin" class="nav-link ms-3 text-warning"><i class="fa fa-user"></i> ' . $cek['nama'] . '</a>
                         </li>';
                     } else {
                         echo '
@@ -145,36 +145,28 @@ $cek = mysqli_fetch_assoc($query);
         <section>
             <h4 class='mb-4'>Artikel Menarik</h4>
             <div class="row">
+                
+        <?php
+            $query = "SELECT artikel.*, user.nama FROM  artikel LEFT JOIN user ON user.id=artikel.penulis";
+            $sql = mysqli_query($koneksi, $query);
+            if (mysqli_num_rows($sql) > 0) {
+                $items = mysqli_fetch_all($sql, MYSQLI_ASSOC);
+                foreach($items as $item) {
+                    ?>
                 <div class="col-lg-4 mb-4">
                     <div class="card">
-                        <img src="assets/pantaipapuma.jpg" class="card-img-top bg-secondary" style='height:200px;object-fit:cover' alt="...">
+                        <img src="uploads/<?= $item['foto'] ?>" class="card-img-top bg-secondary" style='height:200px;object-fit:cover' alt="...">
                         <div class="card-body">
-                        <h5 class='mt-2'>Artikel Pertama</h5>
-                        <span>Oleh <b>Admin</b> - 2021-02-06 11:50:33</span>
-                        <p class="card-text text-truncate inline-block mt-4">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                        <h5 class='mt-2'><?= $item['judul'] ?></h5>
+                        <span>Oleh <b><?= $item['nama'] ?></b> - <?= $item['created_at'] ?></span>
+                        <p class="card-text text-truncate inline-block mt-4"><?= $item['artikel'] ?></p>
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-4 mb-4">
-                    <div class="card">
-                        <img src="assets/pantaipapuma.jpg" class="card-img-top bg-secondary" style='height:200px;object-fit:cover' alt="...">
-                        <div class="card-body">
-                        <h5 class='mt-2'>Artikel Kedua</h5>
-                        <span>Oleh <b>Admin</b> - 2021-02-06 11:50:33</span>
-                        <p class="card-text text-truncate inline-block mt-4">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 mb-4">
-                    <div class="card">
-                        <img src="assets/pantaipapuma.jpg" class="card-img-top bg-secondary" style='height:200px;object-fit:cover' alt="...">
-                        <div class="card-body">
-                        <h5 class='mt-2'>Artikel Ketiga</h5>
-                        <span>Oleh <b>Admin</b> - 2021-02-06 11:50:33</span>
-                        <p class="card-text text-truncate inline-block mt-4">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                        </div>
-                    </div>
-                </div>
+                    <?php
+                }
+            }
+        ?>
             </div>
         </section>
     </div>
